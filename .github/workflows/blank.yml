@@ -1,0 +1,40 @@
+name: Trello API Tests
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  api-tests:
+    runs-on: ubuntu-latest
+
+    env:
+      POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
+      TRELLO_KEY: ${{ secrets.TRELLO_KEY }}
+      TRELLO_TOKEN: ${{ secrets.TRELLO_TOKEN }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Newman
+        run: npm install -g newman newman-reporter-htmlextra
+
+      - name: Run Trello API Collection
+        run: |
+          newman run "https://api.getpostman.com/collections/23898831-07d95394-89ac-491e-a1cb-269b9650bb32?apikey=${POSTMAN_API_KEY}" \
+          -e "https://api.getpostman.com/environments/23898831-90ca28e0-aacf-4c2b-aa17-40ad8ef683c3?apikey=${POSTMAN_API_KEY}" \
+          -r htmlextra --reporter-htmlextra-export "newman-report.html"
+
+      - name: Upload HTML Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: trello-api-report
+          path: newman-report.html
