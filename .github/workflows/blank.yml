@@ -24,6 +24,6 @@ jobs:
 
     - name: Run Trello API Collection
       run: |
-        newman run "https://api.getpostman.com/collections/23898831-07d95394-89ac-491e-a1cb-269b9650bb32?apikey=PMAK-69138918246df00001813cd8-6f6dc0db27615b5a3c32f32628d775db0a" \
-        -e "https://api.getpostman.com/environments/23898831-90ca28e0-aacf-4c2b-aa17-40ad8ef683c3?apikey=PMAK-69138918246df00001813cd8-6f6dc0db27615b5a3c32f32628d775db0a" \
+        newman run "https://api.getpostman.com/collections/23898831-07d95394-89ac-491e-a1cb-269b9650bb32?apikey=6dc0db27615b5a3c32f32628d775db0a" \
+        -e "https://api.getpostman.com/environments/23898831-90ca28e0-aacf-4c2b-aa17-40ad8ef683c3?apikeyc0db27615b5a3c32f32628d775db0a" \
         -r htmlextra --reporter-htmlextra-export "newman-report.html"
